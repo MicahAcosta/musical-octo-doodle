@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  print-hello: 
+    docker:
+      - image: cirlceci/node:13.8.0
+    steps:
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+
+
+       
+
+# Invoke jobs via workflows
+workflows:
+  say-hello-workflow:
+    jobs:
+      - print-hello
