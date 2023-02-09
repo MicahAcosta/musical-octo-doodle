@@ -1,34 +1,28 @@
 version: 2.1
 
 jobs:
-  save_hello_world_output: 
+  save_hello_world_output:
     docker:
-      - image: cirlceci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - run: echo "hello world" > ~/output.txt
-          #name: "Say hello"
-          #command: "echo Hello, World!"
       - persist_to_workspace:
-        root: ~/
-        paths:
-          - output.txt
-
+          root: ~/
+          paths:
+            - output.txt
 
   print_output_file:
     docker:
-      - image: cirlceci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
           at: ~/
       - run: cat ~/output.txt
 
-    #adding a comment to test wsl   
-
-# Invoke jobs via workflows 
 workflows:
-  say-hello-workflow:
+  my_workflow:
     jobs:
-      - save_hello_world_ouput
+      - save_hello_world_output
       - print_output_file:
           requires:
             - save_hello_world_output
